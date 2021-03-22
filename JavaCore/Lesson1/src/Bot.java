@@ -1,5 +1,3 @@
-package Homework8;
-
 public class Bot implements Running, Jumping {
 
     private String name;

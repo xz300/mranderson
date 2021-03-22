@@ -1,5 +1,3 @@
-package Homework8;
-
 public class Track {
     private int trackLength;
     public Track(int trackLength) {

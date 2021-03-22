@@ -1,5 +1,3 @@
-package Homework8;
-
 public class Cat implements Running, Jumping{
     private String name;
     private int maxSpeed;

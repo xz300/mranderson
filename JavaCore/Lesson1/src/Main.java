@@ -1,12 +1,10 @@
-package Homework8;
-
 import Homework5.Animals;
 
 public class Main {
     public static void main(String[] args) {
-        Cat cat = new Cat("Кот", 8,3, 1);
-        Human human = new Human("Человек", 8,2,1);
-        Bot bot = new Bot("Робот", 10, 1,1);
+        Cat cat = new Cat("Кот", 8, 3, 1);
+        Human human = new Human("Человек", 8, 2, 1);
+        Bot bot = new Bot("Робот", 10, 1, 1);
 
 
         System.out.println("//////////// Задание 1 ////////////");
@@ -29,12 +27,12 @@ public class Main {
         double humanTime = 0;
         double botTime = 0;
 
-        for (Track track : tracks){
+        for (Track track : tracks) {
             catTime = catTime + track.getTimeRun(cat);
             humanTime = humanTime + track.getTimeRun(human);
             botTime = botTime + track.getTimeRun(bot);
         }
-        for (Wall wall : walls){
+        for (Wall wall : walls) {
             catTime = catTime + wall.getTimeJump(cat);
             humanTime = humanTime + wall.getTimeJump(human);
             botTime = botTime + wall.getTimeJump(bot);

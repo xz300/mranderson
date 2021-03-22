@@ -1,5 +1,3 @@
-package Homework8;
-
 public class Wall {
     private int wallLength;
     public Wall(int wallLength) {
