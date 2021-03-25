@@ -1,6 +1,5 @@
 package Homework8;
 
-import Homework5.Animals;
 
 public class Main {
     public static void main(String[] args) {
