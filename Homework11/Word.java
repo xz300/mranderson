@@ -16,8 +16,6 @@ public class Word {
         }
         System.out.println("Общее количество слов: " + allWords);
     }
-    Phone pb = new Phone();
-
 
 }
 
