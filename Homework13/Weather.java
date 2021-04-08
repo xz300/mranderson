@@ -29,16 +29,3 @@ public class Weather {
     }
 
 }
-
-//    Request requestBooking = new Request.Builder()
-//            .url("https://restful-booker.herokuapp.com/booking")
-//            .addHeader("Content-Type", "application/json")
-//            .addHeader("accept", "application/json")
-//            .addHeader("Cookie", String.format("token=%s", token))
-//            .post(requestBodyBooking)
-//            .build();
-//
-//    Response responseBooking = okHttpClient.newCall(requestBooking).execute();
-//        System.out.println(responseBooking.code());
-//                System.out.println(responseBooking.headers());
-//                System.out.println(responseBooking.body().string());
