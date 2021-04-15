@@ -19,5 +19,24 @@
     <orderEntry type="library" name="com.squareup.okhttp3:logging-interceptor:4.9.1" level="project" />
     <orderEntry type="library" name="com.squareup.okhttp3:okhttp:4.9.1" level="project" />
     <orderEntry type="library" name="com.github.finagle:finch-jackson_2.11:0.9.3" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../Documents/Новая папка/okhttp-4.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../после формата/sqlite-jdbc-3.34.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="Homework13" />
   </component>
 </module>
