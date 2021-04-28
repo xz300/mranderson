@@ -24,6 +24,7 @@ public class DataBaseRepository {
             saveWeather.setString(2, weather.getLocalDate());
             saveWeather.setString(3, weather.getWeatherText());
             saveWeather.setDouble(4, weather.getTemperature());
+
             return saveWeather.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -35,7 +36,7 @@ public class DataBaseRepository {
 
     public List<Weather> getSavedWeatherData() throws SQLException {
         List<Weather> weatherList = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:geekbrains.db")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:D:\\geekbrains\\SQLlite\\weather.db")) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from weather");
             while (resultSet.next()) {

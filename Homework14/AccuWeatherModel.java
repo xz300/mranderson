@@ -22,8 +22,13 @@ public class AccuWeatherModel implements WeatherModel {
     private static final OkHttpClient okHttpClient = new OkHttpClient();
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public void getWeather(Period period, String selectedCity) throws IOException {
+    public void getWeather(Period period, String selectedCity) throws IOException, SQLException {
         String cityKey = detectCityKey(selectedCity);
+        String city =getCityKey(selectedCity);
+        String data;
+        double tempetature;
+        String weather;
+        DataBaseRepository dataBaseRepository = new DataBaseRepository();
         if (period == Period.NOW) {
             HttpUrl httpUrl = new HttpUrl.Builder()
                     .scheme(PROTOKOL)
@@ -44,14 +49,18 @@ public class AccuWeatherModel implements WeatherModel {
             //TODO: вызвать метод сохранения погоды в базу из DataBaseRepository, предварительно из responseString
             //достав нужные данные для создания объекта Weather
             System.out.println(responseString);
-            String data = objectMapper.readTree(responseString).get(0).at("/LocalObservationDateTime").asText();
+            System.out.println("Город: " + city);
+            data = objectMapper.readTree(responseString).get(0).at("/LocalObservationDateTime").asText();
             System.out.println("Дата: " + data);
-            String temp = objectMapper.readTree(responseString).get(0).at("/Temperature/Metric/Value").asText();
-            System.out.println("Температура : " + temp);
-            String temp1 = objectMapper.readTree(responseString).get(0).at("/WeatherText").asText();
-            System.out.println("На небе: " + temp1);
+            tempetature = Double.parseDouble(objectMapper.readTree(responseString).get(0).at("/Temperature/Metric/Value").asText());
+            System.out.println("Температура : " + tempetature);
+            weather = objectMapper.readTree(responseString).get(0).at("/WeatherText").asText();
+            System.out.println("На небе: " + weather);
             String temp2 = objectMapper.readTree(responseString).get(0).at("/HasPrecipitation").asText();
             System.out.println("Осадки: " + temp2);
+//                public Weather(String city, String localDate, String weatherText, double temperature) {
+                Weather weatherDB = new Weather(city, data, weather, tempetature);
+            dataBaseRepository.saveWeatherData(weatherDB);
         }
 
         if (period == Period.FIVE_DAYS) {
@@ -91,11 +100,37 @@ public class AccuWeatherModel implements WeatherModel {
         String responseString = response.body().string();
 
 
-        String city = objectMapper.readTree(responseString).get(0).at("/LocalizedName").asText();
         String cityKey = objectMapper.readTree(responseString).get(0).at("/Key").asText();
 
-        System.out.println("Город: " + city);
+//        System.out.println("Город: " + cityKey);
         return cityKey;
+
+    }
+    public String getCityKey(String selectedCity) throws IOException {
+        HttpUrl httpUrl = new HttpUrl.Builder()
+                .scheme(PROTOKOL)
+                .host(BASE_HOST)
+                .addPathSegment(LOCATIONS_ENDPOINT)
+                .addPathSegment(API_V1)
+                .addPathSegment(CITIES_ENDPOINT)
+                .addPathSegment(AUTOCOMPLETE_ENDPOINT)
+                .addQueryParameter("apikey", API_KEY)
+                .addQueryParameter("q", selectedCity)
+                .build();
+
+        Request request = new Request.Builder()
+                .addHeader("accept", "application/json")
+                .url(httpUrl)
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+        String responseString = response.body().string();
+
+        String city = objectMapper.readTree(responseString).get(0).at("/LocalizedName").asText();
+
+
+//        System.out.println("Город: " + cityKey);
+        return city;
 
     }
 }

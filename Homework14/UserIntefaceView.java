@@ -1,6 +1,7 @@
 package Homework14;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserIntefaceView {
@@ -29,7 +30,9 @@ public class UserIntefaceView {
 
             try {
                 controller.getWeather(command, city);
-            } catch (IOException e) {
+                DataBaseRepository dataBaseRepository = new DataBaseRepository();
+                dataBaseRepository.getSavedWeatherData();
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
                 continue;
             }
