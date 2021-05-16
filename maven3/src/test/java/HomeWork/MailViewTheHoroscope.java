@@ -1,51 +1,35 @@
 package HomeWork;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import lesson6.pagesMail.AllHoroscope;
+import lesson6.pagesMail.TomorrowHoroscope;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+
+import static lesson6.Configuration.Mail_URL;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.yandex.qatools.htmlelements.matchers.WebElementMatchers.hasText;
 
-public class MailViewTheHoroscope {
-    private static WebDriver driver;
-    private static final String LOGIN_URL = "https://mail.ru/";
-
-    @BeforeTest
-    void setUp(){
-        WebDriverManager.chromedriver().setup();
-    }
-
+public class MailViewTheHoroscope extends BaseTest {
     @BeforeMethod
-    void loginDriver(){
-        driver = new ChromeDriver();
-        driver.get(LOGIN_URL);
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+    void goToPage() {
+        driver.get(Mail_URL);
     }
 
-    @Test(description = "Гороскоп на завтра", enabled = true)
-    void viewHoroscope()  {
-        driver.findElement(By.xpath("//*[@class=\"horoscope i-link-no-deco svelte-123mkzr\"]")).click();
-        driver.findElement(By.xpath("//span[text()=\"Завтра\"]")).click();
-//        assertThat(driver.findElement(By.xpath("//span[text()=\"Уточнить дату рождения\"]")), hasText("Уточнить дату рождения"));
+    @Test(description = "Просмотр гороскопа на завтра", enabled = true)
+    void viewHoroscope(){
+        new AllHoroscope(driver).clickHoroscope.click();
+        new TomorrowHoroscope(driver).clickButton.click();
+
         List<WebElement> menu = driver.findElements(By.xpath("//*[@class=\"js-text-inner pm-toolbar__button__text__inner  pm-toolbar__button__text__inner_noicon\"]"));
         assertThat(menu.get(0), hasText("Звезды"));
+
     }
 
-    @AfterMethod
-    void closedBrowser(){
-        driver.quit();
-    }
+
 }
 
 
